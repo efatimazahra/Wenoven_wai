@@ -8,7 +8,8 @@
     "build": "vite build",
     "lint": "eslint .",
     "preview": "vite preview",
-    "install-deps": "npm install --legacy-peer-deps"
+    "install-deps": "npm install --legacy-peer-deps",
+    "vercel-build": "npm install --legacy-peer-deps --force && npm run build"
   },
   "dependencies": {
     "@hookform/resolvers": "^5.0.1",
