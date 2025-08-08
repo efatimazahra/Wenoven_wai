@@ -30,7 +30,7 @@ export default function AssistantIA() {
 
   // Initialiser EmailJS
   useEffect(() => {
-    emailjs.init("YOUR_USER_ID"); // Remplacez par votre User ID EmailJS
+    emailjs.init("VOTRE_USER_ID_ICI"); // Remplacez par votre User ID EmailJS
   }, []);
 
   const handleSend = () => {
@@ -51,9 +51,9 @@ export default function AssistantIA() {
 
   const sendEmail = (data) => {
     // Configuration EmailJS - Remplacez par vos propres identifiants
-    const serviceID = 'YOUR_SERVICE_ID'; // Service EmailJS (ex: gmail)
-    const templateID = 'YOUR_TEMPLATE_ID'; // Template EmailJS
-    const userID = 'YOUR_USER_ID'; // User ID EmailJS
+    const serviceID = 'VOTRE_SERVICE_ID_ICI'; // Service EmailJS (ex: gmail)
+    const templateID = 'VOTRE_TEMPLATE_ID_ICI'; // Template EmailJS
+    const userID = 'VOTRE_USER_ID_ICI'; // User ID EmailJS
     
     // Contenu de l'email
     const templateParams = {
