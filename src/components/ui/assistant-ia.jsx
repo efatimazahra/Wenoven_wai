@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import emailjs from 'emailjs-com';
 
 const questions = [
@@ -28,6 +28,11 @@ export default function AssistantIA() {
   const [showSummary, setShowSummary] = useState(false);
   const [emailSent, setEmailSent] = useState(false);
 
+  // Initialiser EmailJS
+  useEffect(() => {
+    emailjs.init("YOUR_USER_ID"); // Remplacez par votre User ID EmailJS
+  }, []);
+
   const handleSend = () => {
     if (input.trim() === '') return;
     const newAnswers = { ...answers, [questions[step].key]: input };
@@ -45,20 +50,43 @@ export default function AssistantIA() {
   };
 
   const sendEmail = (data) => {
-    // Remplacez par vos propres identifiants EmailJS
-    const serviceID = 'YOUR_SERVICE_ID';
-    const templateID = 'YOUR_TEMPLATE_ID';
-    const userID = 'YOUR_USER_ID';
+    // Configuration EmailJS - Remplacez par vos propres identifiants
+    const serviceID = 'YOUR_SERVICE_ID'; // Service EmailJS (ex: gmail)
+    const templateID = 'YOUR_TEMPLATE_ID'; // Template EmailJS
+    const userID = 'YOUR_USER_ID'; // User ID EmailJS
+    
+    // Contenu de l'email
     const templateParams = {
       to_email: 'fmoraux.wenoven@gmail.com',
+      from_name: 'Assistant IA Wenoven',
+      subject: 'Nouvelle demande client - Assistant IA',
+      message: `
+Nouvelle demande reçue via l'Assistant IA :
+
+📋 SECTEUR : ${data.secteur}
+🎯 PROBLÉMATIQUE : ${data.problematique}
+🚀 OBJECTIF : ${data.objectif}
+📧 EMAIL CLIENT : ${data.email}
+
+---
+Envoyé automatiquement par l'Assistant IA Wenoven
+      `,
       secteur: data.secteur,
       problematique: data.problematique,
       objectif: data.objectif,
-      email: data.email
+      email_client: data.email
     };
+    
+    // Envoi de l'email
     emailjs.send(serviceID, templateID, templateParams, userID)
-      .then(() => setEmailSent(true))
-      .catch(() => setEmailSent(false));
+      .then((response) => {
+        console.log('Email envoyé avec succès:', response);
+        setEmailSent(true);
+      })
+      .catch((error) => {
+        console.error('Erreur envoi email:', error);
+        setEmailSent(false);
+      });
   };
 
   const handleRestart = () => {
@@ -115,8 +143,8 @@ export default function AssistantIA() {
                 <div><span className="text-purple-300">Problématique :</span> {answers.problematique}</div>
                 <div><span className="text-purple-300">Objectif :</span> {answers.objectif}</div>
                 <div><span className="text-purple-300">Email :</span> {answers.email}</div>
-                {emailSent && <div className="text-green-400 mt-2">Email envoyé à l'équipe Wenoven !</div>}
-                <button className="mt-4 w-full bg-gradient-to-r from-purple-600 to-pink-600 text-white rounded p-2" onClick={handleRestart}>Recommencer</button>
+                                 {emailSent && <div className="text-green-400 mt-2">✅ Email envoyé à l'équipe Wenoven !</div>}
+                                 <button className="mt-4 w-full bg-gradient-to-r from-purple-600 to-pink-600 text-white rounded p-2" onClick={handleRestart}>Bien reçu!</button>
               </div>
             )}
           </div>

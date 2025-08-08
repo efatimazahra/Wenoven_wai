@@ -138,7 +138,7 @@ function App() {
                 <ArrowRight className="ml-2 w-5 h-5" />
               </Button>
               <Button size="lg" variant="outline" className="border-purple-500 text-purple-300 hover:bg-purple-500/10 px-8 py-4 text-lg" onClick={() => window.open("https://calendly.com/fmoraux-wenoven/30min", "_blank")}>
-                Planifier une consultation
+                Prendre un RDV
               </Button>
             </div>
           </div>
